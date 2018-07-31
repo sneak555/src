@@ -61,7 +61,8 @@ class Board {
     return(this._numOfTiles !== this._numbOfBombs)
   }
   print (board) {
-    console.log(this._board.map(row => row.join(' | ')).join('\n'));
+//  console.log(board.map(row => row.join(' | ')).join('\n'));
+    console.log(this._playerBoard.map(row => row.join(' | ')).join('\n'));
   }
   static generatePlayerBoard (numOfRows,numOfCols){
     let board = [];
@@ -120,4 +121,3 @@ printBoard(playerBoard);
 const g = new Game(3,3,3);
 g.playMove(1,1);
 g.playMove(1,2);
-
