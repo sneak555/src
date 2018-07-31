@@ -7,7 +7,7 @@ class Game {
     if(this._board.playerBoard[rowIn][colIn] === 'B') {
       console.log('BOMB!: game over.');
       this._board.print();
-    } else if (board.hasSafeTiles()){
+    } else if (this._board.hasSafeTiles()){
       console.log('that was the last tile!: YOU WIN! :)');
       this._board.print();
     } else {
@@ -21,8 +21,8 @@ class Board {
   constructor(numbOfRows,numbOfCols,numbOfBombs){
     this._numbOfBombs = numbOfBombs;
     this._numOfTiles = numbOfCols*numbOfRows;
-    this._playerBoard = generatePlayerBoard(numbOfRows,numbOfCols);
-    this._bombBoard = generateBombBoard(numbOfRows,numbOfCols,numbOfBombs);
+    this._playerBoard = Board.generatePlayerBoard(numbOfRows,numbOfCols);
+    this._bombBoard = Board.generateBombBoard(numbOfRows,numbOfCols,numbOfBombs);
   }
   get playerBoard() {
     return this._playerBoard;
@@ -34,7 +34,7 @@ class Board {
     } else if (this._bombBoard[rowIndex][colIndex] === 'B') {
       this._playerBoard[rowIndex][colIndex] = 'B';
     } else {
-      this._playerBoard[rowIndex][colIndex] = getNumOfBombs(rowIndex,colIndex);
+      this._playerBoard[rowIndex][colIndex] = this.getNumOfBombs(rowIndex,colIndex);
     }
     this._numOfTiles++
   }
@@ -61,25 +61,25 @@ class Board {
     return(this._numOfTiles !== this._numbOfBombs)
   }
   print (board) {
-    console.log(board.map(row => row.join(' | ')).join('\n'));
+    console.log(this._board.map(row => row.join(' | ')).join('\n'));
   }
   static generatePlayerBoard (numOfRows,numOfCols){
     let board = [];
-    for(i=0;i<numOfRows;i++){
+    for(let i=0;i<numOfRows;i++){
       let row = [];
-      for(j=0;j<numOfCols;j++){
+      for(let j=0;j<numOfCols;j++){
         row.push(' ');
-  //      row.push('|');
-        }
-      board.push(row);
+  //     row.push('|');
       }
-    return board;
+    board.push(row);
     }
-  staticgenerateBombBoard (numOfRows,numOfCols,numOfBombs){
+  return board;
+  }
+  static generateBombBoard (numOfRows,numOfCols,numOfBombs){
     let board = [];
-    for(i=0;i<numOfRows;i++){
+    for(let i=0;i<numOfRows;i++){
       let row = [];
-      for(j=0;j<numOfCols;j++){
+      for(let j=0;j<numOfCols;j++){
         row.push(' ');
   //      row.push('| ');
       }
@@ -120,3 +120,4 @@ printBoard(playerBoard);
 const g = new Game(3,3,3);
 g.playMove(1,1);
 g.playMove(1,2);
+
